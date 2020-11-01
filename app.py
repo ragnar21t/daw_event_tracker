@@ -32,35 +32,19 @@ def getTime(time):
     eventTime = timeTag[0]
     return eventTime
 
-# Method to get the 'MoodleSession' and 'MOODLEID1_'
-def getCookies(x):
-    # For this i've made a file containing your cookies. You will have to write them manually once.
-    file = open(os.path.expanduser("~/.config/dawtracker/dawtrackercookies"), "r")
-    lines = file.read().splitlines()
-    file.close()
-
-    return lines[x] # return the first or second line, as x only can be 0 or 1 and it's passed down in cookies.
-
-# App folder creation system.
-if platform.system() == "Linux":
-    if os.path.exists(os.path.expanduser("~/.config/dawtracker/dawtrackercookies")) and os.path.exists(os.path.expanduser("~/.config/dawtracker")):
-        pass
-    else:
-        os.mkdir(os.path.expanduser("~/.config/dawtracker"))
-        config = open(os.path.expanduser("~/.config/dawtracker/dawtrackercookies"), "x")
-        config.close()
-
 # Python Colorama init() to support windows.
 init(autoreset=True)
 
-# COOKIES
-cookies = {
-    'MoodleSession': getCookies(0),
-    'MOODLEID1_': getCookies(1)
-}
+# REPLACE HERE THE CONTENT FROM CURL https://curl.trillworks.com/
+# -------------------------------------------------------------
+
+headers = {}
+cookies = {}
+
+# -------------------------------------------------------------
 
 # Connecting to the calendar page while logged in
-response = requests.get('http://plataforma2.siges21.com/calendar/view.php', cookies=cookies)
+response = requests.get('http://plataforma2.siges21.com/calendar/view.php', headers=headers, cookies=cookies)
 
 # Get page data
 soup = BeautifulSoup(response.text, 'html.parser')
