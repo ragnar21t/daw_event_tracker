@@ -27,8 +27,14 @@ def getContent(array):
 # This does the same as getContent() but some things are adapted.
 def getTime(time):
     timeTags = re.split(">", time)
-    timeTag = re.split(", ", timeTags[3])
-    timeTag = re.split("<", timeTag[1])
+    
+    try:
+        timeTag = re.split(", ", timeTags[3])
+        timeTag = re.split("<", timeTag[1])
+    except:
+        timeTag = re.split(", ", timeTags[2])
+        timeTag = re.split("<", timeTag[0])
+
     eventTime = timeTag[0]
     return eventTime
 
